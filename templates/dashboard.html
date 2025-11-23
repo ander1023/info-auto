@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>任务管理面板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        .log-entry {
+            padding: 5px 10px;
+            border-bottom: 1px solid #eee;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .log-info { color: #17a2b8; }
+        .log-warning { color: #ffc107; }
+        .log-error { color: #dc3545; }
+        .log-success { color: #28a745; }
+        .log-debug { color: #6c757d; }
+        #logOutput {
+            height: 400px;
+            overflow-y: auto;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .log-timestamp {
+            color: #6A9955;
+        }
+        .log-level {
+            font-weight: bold;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">自动化任务管理系统</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/logout">退出登录</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- 文件管理 -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Excel文件管理</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="fileInfo">
+                            <p>加载中...</p>
+                        </div>
+                        <div class="mt-3">
+                            <input type="file" id="fileInput" class="form-control" accept=".xlsx,.xls">
+                            <button class="btn btn-primary mt-2" onclick="uploadFile()">上传文件</button>
+                            <button class="btn btn-success mt-2" onclick="downloadFile()">下载文件</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 任务控制 -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>任务控制</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="taskStatus">
+                            <p>加载中...</p>
+                        </div>
+                        <div class="mt-3">
+                            <button id="startBtn" class="btn btn-success" onclick="startTask()">
+                                <i class="fas fa-play"></i> 启动任务
+                            </button>
+                            <button id="stopBtn" class="btn btn-danger" onclick="stopTask()" disabled>
+                                <i class="fas fa-stop"></i> 停止任务
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日志显示 -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5>实时日志</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="clearLogs()">
+                                <i class="fas fa-trash"></i> 清空日志
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="toggleAutoScroll()">
+                                <i class="fas fa-arrows-alt-v"></i> 自动滚动: <span id="autoScrollStatus">开启</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="logOutput">
+                            <div class="log-entry text-muted">等待日志连接...</div>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">日志级别:
+                                <span class="badge bg-info">INFO</span>
+                                <span class="badge bg-warning">WARNING</span>
+                                <span class="badge bg-danger">ERROR</span>
+                                <span class="badge bg-success">SUCCESS</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let socket = null;
+        let autoScroll = true;
+
+        // 初始化WebSocket连接
+        function initWebSocket() {
+            socket = io();
+
+            socket.on('connect', function() {
+                addLogEntry('系统', 'info', 'WebSocket连接已建立');
+            });
+
+            socket.on('disconnect', function() {
+                addLogEntry('系统', 'warning', 'WebSocket连接已断开');
+            });
+
+            socket.on('log_history', function(logs) {
+                const logOutput = document.getElementById('logOutput');
+                logOutput.innerHTML = '';
+
+                logs.forEach(log => {
+                    addLogEntry(log.logger, log.level, log.message, log.timestamp, false);
+                });
+
+                if (autoScroll) {
+                    logOutput.scrollTop = logOutput.scrollHeight;
+                }
+            });
+
+            socket.on('log_update', function(log) {
+                addLogEntry(log.logger, log.level, log.message, log.timestamp);
+            });
+        }
+
+        // 添加日志条目
+        function addLogEntry(logger, level, message, timestamp = null, scroll = true) {
+            const logOutput = document.getElementById('logOutput');
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+
+            const time = timestamp || new Date().toLocaleTimeString();
+            const levelClass = `log-${level.toLowerCase()}`;
+
+            logEntry.innerHTML = `
+                <span class="log-timestamp">[${time}]</span>
+                <span class="log-level ${levelClass}">${level}</span>
+                <span class="log-logger">[${logger}]</span>
+                <span class="log-message">${message}</span>
+            `;
+
+            logOutput.appendChild(logEntry);
+
+            if (scroll && autoScroll) {
+                logOutput.scrollTop = logOutput.scrollHeight;
+            }
+        }
+
+        // 清空日志
+        function clearLogs() {
+            document.getElementById('logOutput').innerHTML = '';
+        }
+
+        // 切换自动滚动
+        function toggleAutoScroll() {
+            autoScroll = !autoScroll;
+            document.getElementById('autoScrollStatus').textContent = autoScroll ? '开启' : '关闭';
+        }
+
+        // 更新文件信息
+        function updateFileInfo() {
+            fetch('/api/file_info')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('fileInfo').innerHTML = `
+                            <p><strong>文件大小:</strong> ${(data.file_size / 1024).toFixed(2)} KB</p>
+                            <p><strong>行数:</strong> ${data.row_count}</p>
+                            <p><strong>列数:</strong> ${data.column_count}</p>
+                            <p><strong>列名:</strong> ${data.columns.join(', ')}</p>
+                        `;
+                    } else {
+                        document.getElementById('fileInfo').innerHTML = `<p class="text-danger">${data.message}</p>`;
+                    }
+                });
+        }
+
+        // 更新任务状态
+        function updateTaskStatus() {
+            fetch('/api/task_status')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('taskStatus');
+                    const startBtn = document.getElementById('startBtn');
+                    const stopBtn = document.getElementById('stopBtn');
+
+                    if (data.is_running) {
+                        statusElement.innerHTML = '<p class="text-success"><i class="fas fa-play"></i> 任务运行中</p>';
+                        startBtn.disabled = true;
+                        stopBtn.disabled = false;
+                    } else {
+                        statusElement.innerHTML = '<p class="text-secondary"><i class="fas fa-stop"></i> 任务已停止</p>';
+                        startBtn.disabled = false;
+                        stopBtn.disabled = true;
+                    }
+                });
+        }
+
+        // 文件操作
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('请选择文件');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.status === 'success') {
+                    updateFileInfo();
+                    fileInput.value = '';
+                }
+            });
+        }
+
+        function downloadFile() {
+            window.open('/api/download', '_blank');
+        }
+
+        // 任务控制
+        function startTask() {
+            fetch('/api/start_task', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    updateTaskStatus();
+                });
+        }
+
+        function stopTask() {
+            fetch('/api/stop_task', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    updateTaskStatus();
+                });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initWebSocket();
+            updateFileInfo();
+            updateTaskStatus();
+
+            // 每5秒更新一次状态
+            setInterval(() => {
+                updateTaskStatus();
+                updateFileInfo();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

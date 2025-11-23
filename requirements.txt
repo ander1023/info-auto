@@ -1,1 +1,5 @@
 pandas~=2.3.3
+flask~=3.1.2
+Flask-JWT-Extended~=4.7.1
+Flask-SocketIO~=5.5.1
+werkzeug~=3.1.3

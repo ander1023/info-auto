@@ -1,0 +1,30 @@
+Scanning: http://www.baidu.com
+STDOUT:
+
+STDERR:
+<internal:/usr/lib/ruby/3.4.0/rubygems/core_ext/kernel_require.rb>:136:in 'Kernel#require': cannot load such file -- lib/whatweb (LoadError)
+	from <internal:/usr/lib/ruby/3.4.0/rubygems/core_ext/kernel_require.rb>:136:in 'Kernel#require'
+	from /usr/bin/whatweb:37:in '<main>'
+
+--------------------------------------------------
+Scanning: http://httpbin.org
+STDOUT:
+
+STDERR:
+<internal:/usr/lib/ruby/3.4.0/rubygems/core_ext/kernel_require.rb>:136:in 'Kernel#require': cannot load such file -- lib/whatweb (LoadError)
+	from <internal:/usr/lib/ruby/3.4.0/rubygems/core_ext/kernel_require.rb>:136:in 'Kernel#require'
+	from /usr/bin/whatweb:37:in '<main>'
+
+--------------------------------------------------
+Scanning: http://example.com
+STDOUT:
+
+STDERR:
+<internal:/usr/lib/ruby/3.4.0/rubygems/core_ext/kernel_require.rb>:136:in 'Kernel#require': cannot load such file -- lib/whatweb (LoadError)
+	from <internal:/usr/lib/ruby/3.4.0/rubygems/core_ext/kernel_require.rb>:136:in 'Kernel#require'
+	from /usr/bin/whatweb:37:in '<main>'
+
+--------------------------------------------------Executing command: httpxx -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0' -l log/temp/httpx.txt -sc -title -server -td -fr -nc -silent
+Input file: log/temp/httpx.txt with 1 URLs
+Executing command: httpxx -l log/temp/httpx.txt -sc -title -server -td -fr -nc -silent
+Input file: log/temp/httpx.txt with 1 URLs

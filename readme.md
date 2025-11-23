@@ -9,6 +9,17 @@
 2. masscan
 3. httpx
 
+
+```python
+git clone https://github.com/ander1023/info-auto.git
+cd info-auto
+python -m venv venv
+./venv/bin/pip install -r requirements.txt
+
+python main.py
+```
+
+
 ## TODO
 1. httpx subprocess执行失败 未找到原因
 2. 增加一个webUI,在线启动任务与修改查看excel表格

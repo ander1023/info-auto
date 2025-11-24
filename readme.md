@@ -6,9 +6,12 @@
 ## 安装
 修改config.py
 检查工具是否可以使用
+
+本地搭建注意masscan需要root权限
+
 1. nali
 2. masscan
-3. httpx
+3. whatweb
 
 
 ```python
@@ -19,18 +22,32 @@ python -m venv venv
 
 python main.py
 ```
-## docker 
-修改config.py
+### docker
+
 ```
 docker load -i info-auto13.tar
 docker compose up -d
+
+访问 IP:55823
 
 
 docker compose down
 
 ```
 
+
+
+## 使用
+
+- config.py中有三个要修改 jwt密钥   账号  密码
+- ./info-auto.xlsx 从子域名子表格的名称列中输入子域名，自动进行流程处理，并循环执行，直到全部状态为处理 。
+- assets文件夹中有原始空白模板，以防丢失。
+- 每个流程的过程日志会保留在log/xxx.log 对应工具的原始日志
+
+
+
 ## TODO
+
 1. httpx subprocess执行失败 未找到原因
 2. 增加一个webUI,在线启动任务与修改查看excel表格
 3. 封装docker,一键启动

@@ -4,6 +4,7 @@
 自动化处理，将子域名->host->nali->扩段->masscan->httpx 流程自动化，直接获取结果。
 维护一个excel表(模板中结构不可修改)
 ## 安装
+修改config.py
 检查工具是否可以使用
 1. nali
 2. masscan
@@ -18,7 +19,16 @@ python -m venv venv
 
 python main.py
 ```
+## docker 
+修改config.py
+```
+docker load -i info-auto13.tar
+docker compose up -d
 
+
+docker compose down
+
+```
 
 ## TODO
 1. httpx subprocess执行失败 未找到原因

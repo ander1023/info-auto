@@ -108,7 +108,7 @@ class TaskManager:
 
                     try:
                         logger.info("开始HTTP服务发现...")
-                        processed_count += main.httpx()
+                        processed_count += main.whatweb()
                         logger.info("HTTP服务发现完成")
                     except Exception as e:
                         logger.error(f"HTTP服务发现失败: {e}")

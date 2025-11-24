@@ -2,6 +2,7 @@ import tools.host
 import tools.masscan
 import tools.nali
 import tools.cip
+import tools.whatweb
 import tools.exceltools
 
 
@@ -185,7 +186,7 @@ def masscan() -> int:
     return len(ips)
 
 
-def httpx() -> int:
+def whatweb() -> int:
     """
     处理HTTP服务发现流程
 
@@ -203,7 +204,6 @@ def httpx() -> int:
 
     if not canHostSubdomain:
         print("没有可解析的子域名记录")
-        return 0
 
     print(f"发现 {len(canHostSubdomain)} 个可解析的子域名")
 
@@ -249,9 +249,30 @@ def httpx() -> int:
     print(f"开始HTTP探测 {len(urls)} 条记录")
     # 这里可以添加httpx处理逻辑
     # tools.httpx.run(urls)
-
-    # return len(urls)
-    return 0
+    results = tools.whatweb.run(urls)
+    resultUrl = [url for item in results for url in item.keys()]
+    tools.exceltools.deduplicate_append_excel(
+        file_path="info-auto.xlsx",
+        sheet_name="http解析",
+        target_list=resultUrl,
+        match_column='名称'
+    )
+    tools.exceltools.update_excel_status_dict(
+        file_path="info-auto.xlsx",
+        sheet_name="http解析",
+        target_list=results,
+        match_column="名称",
+        status_column="类型",
+    )
+    tools.exceltools.update_excel_status(
+        file_path="info-auto.xlsx",
+        sheet_name="http汇总",
+        target_list=urls,
+        match_column="名称",
+        status_column="httpx处理状态",
+        status_value="处理"
+    )
+    return len(urls)
 
 
 def main():
@@ -276,7 +297,7 @@ def main():
         processed_count += host()
         processed_count += nali()
         processed_count += masscan()
-        processed_count += httpx()
+        processed_count += whatweb()
 
         if processed_count == 0:
             print("\n所有处理流程已完成，退出循环")

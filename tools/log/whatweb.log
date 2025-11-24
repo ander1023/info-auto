@@ -1,0 +1,165 @@
+2025-11-24 21:03:34 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:03:34 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:03:34 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:03:34
+2025-11-24 21:03:34 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:03:34 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:03:34 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:03:34 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:03:37 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:03:37 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+[1m[34mhttp://127.0.0.1:81[0m [401 Unauthorized] [1mAccess-Control-Allow-Methods[0m[[0m[22mGET, POST, OPTIONS[0m], [1mCountry[0m[[0m[22mRESERVED[0m][[1m[31mZZ[0m], [1mHTTPServer[0m[[1m[36mnginx/1.28.0[0m], [1mIP[0m[[0m[22m127.0.0.1[0m], [1mTitle[0m[[1m[33m401 Authorization Required[0m], [1mUncommonHeaders[0m[[0m[22maccess-control-allow-origin,access-control-allow-methods,access-control-allow-headers[0m], [1mWWW-Authenticate[0m[[0m[22m请输入账号密码[0m][[1m[31mBasic[0m], [1mnginx[0m[[1m[32m1.28.0[0m]
+
+2025-11-24 21:03:40 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:03:40 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+[1m[34mhttp://127.0.0.1:82[0m [200 OK] [1mCountry[0m[[0m[22mRESERVED[0m][[1m[31mZZ[0m], [1mHTML5[0m, [1mIP[0m[[0m[22m127.0.0.1[0m], [1mMeta-Author[0m[[0m[22mMathieu Bodjikian, Charles-Antoine Mathieu[0m], [1mScript[0m[[0m[22mtext/javascript[0m], [1mTitle[0m[[1m[33mPlik[0m]
+
+2025-11-24 21:03:40 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:03:40 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:03:40 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:03:40
+2025-11-24 21:03:40 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:05:13 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:05:13 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:05:13 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:05:13
+2025-11-24 21:05:13 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:05:13 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:05:13 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:05:13 - whatweb_scanner - ERROR - 扫描目标 127.0.0.1:81 时出错: [Errno 2] No such file or directory: '/home/meng/vuln/linux/whatweb/whatweb --no-error --color=never --user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0"'
+2025-11-24 21:05:13 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:05:13 - whatweb_scanner - ERROR - 扫描目标 127.0.0.1:82 时出错: [Errno 2] No such file or directory: '/home/meng/vuln/linux/whatweb/whatweb --no-error --color=never --user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0"'
+2025-11-24 21:05:13 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:05:13 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:05:13 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:05:13
+2025-11-24 21:05:13 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:05:39 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:05:39 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:05:39 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:05:39
+2025-11-24 21:05:39 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:05:39 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:05:39 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:05:39 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:05:45 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:05:45 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+http://127.0.0.1:81 [401 Unauthorized] Access-Control-Allow-Methods[GET, POST, OPTIONS], Country[RESERVED][ZZ], HTTPServer[nginx/1.28.0], IP[127.0.0.1], Title[401 Authorization Required], UncommonHeaders[access-control-allow-origin,access-control-allow-methods,access-control-allow-headers], WWW-Authenticate[请输入账号密码][Basic], nginx[1.28.0]
+
+2025-11-24 21:05:45 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:05:45 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+http://127.0.0.1:82 [200 OK] Country[RESERVED][ZZ], HTML5, IP[127.0.0.1], Meta-Author[Mathieu Bodjikian, Charles-Antoine Mathieu], Script[text/javascript], Title[Plik]
+
+2025-11-24 21:05:45 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:05:45 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:05:45 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:05:45
+2025-11-24 21:05:45 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:06:17 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:06:17 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:06:17 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:06:17
+2025-11-24 21:06:17 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:06:17 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:06:17 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:06:17 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:06:21 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:06:21 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+http://127.0.0.1:81 [401 Unauthorized] Access-Control-Allow-Methods[GET, POST, OPTIONS], Country[RESERVED][ZZ], HTTPServer[nginx/1.28.0], IP[127.0.0.1], Title[401 Authorization Required], UncommonHeaders[access-control-allow-origin,access-control-allow-methods,access-control-allow-headers], WWW-Authenticate[请输入账号密码][Basic], nginx[1.28.0]
+
+2025-11-24 21:06:21 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:06:21 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+http://127.0.0.1:82 [200 OK] Country[RESERVED][ZZ], HTML5, IP[127.0.0.1], Meta-Author[Mathieu Bodjikian, Charles-Antoine Mathieu], Script[text/javascript], Title[Plik]
+
+2025-11-24 21:06:21 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:06:21 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:06:21 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:06:21
+2025-11-24 21:06:21 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:06:57 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:06:57 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:06:57 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:06:57
+2025-11-24 21:06:57 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:06:57 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:06:57 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:06:57 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:07:02 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:07:02 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+http://127.0.0.1:82 [200 OK] Country[RESERVED][ZZ], HTML5, IP[127.0.0.1], Meta-Author[Mathieu Bodjikian, Charles-Antoine Mathieu], Script[text/javascript], Title[Plik]
+
+2025-11-24 21:07:02 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:07:02 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+http://127.0.0.1:81 [401 Unauthorized] Access-Control-Allow-Methods[GET, POST, OPTIONS], Country[RESERVED][ZZ], HTTPServer[nginx/1.28.0], IP[127.0.0.1], Title[401 Authorization Required], UncommonHeaders[access-control-allow-origin,access-control-allow-methods,access-control-allow-headers], WWW-Authenticate[请输入账号密码][Basic], nginx[1.28.0]
+
+2025-11-24 21:07:02 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:07:02 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:07:02 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:07:02
+2025-11-24 21:07:02 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:07:38 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:07:38 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:07:38 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:07:38
+2025-11-24 21:07:38 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:07:38 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:07:38 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:07:38 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:07:42 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:07:42 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+http://127.0.0.1:81 [401 Unauthorized] Access-Control-Allow-Methods[GET, POST, OPTIONS], Country[RESERVED][ZZ], HTTPServer[nginx/1.28.0], IP[127.0.0.1], Title[401 Authorization Required], UncommonHeaders[access-control-allow-origin,access-control-allow-methods,access-control-allow-headers], WWW-Authenticate[请输入账号密码][Basic], nginx[1.28.0]
+
+2025-11-24 21:07:42 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:07:42 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+http://127.0.0.1:82 [200 OK] Country[RESERVED][ZZ], HTML5, IP[127.0.0.1], Meta-Author[Mathieu Bodjikian, Charles-Antoine Mathieu], Script[text/javascript], Title[Plik]
+
+2025-11-24 21:07:42 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:07:42 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:07:42 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:07:42
+2025-11-24 21:07:42 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:08:08 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:08:08 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:08:08 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:08:08
+2025-11-24 21:08:08 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:08:08 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:08:08 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:08:08 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:08:13 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:08:13 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+http://127.0.0.1:81 [401 Unauthorized] Access-Control-Allow-Methods[GET, POST, OPTIONS], Country[RESERVED][ZZ], HTTPServer[nginx/1.28.0], IP[127.0.0.1], Title[401 Authorization Required], UncommonHeaders[access-control-allow-origin,access-control-allow-methods,access-control-allow-headers], WWW-Authenticate[请输入账号密码][Basic], nginx[1.28.0]
+
+2025-11-24 21:08:13 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:08:13 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+http://127.0.0.1:82 [200 OK] Country[RESERVED][ZZ], HTML5, IP[127.0.0.1], Meta-Author[Mathieu Bodjikian, Charles-Antoine Mathieu], Script[text/javascript], Title[Plik]
+
+2025-11-24 21:08:13 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:08:13 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:08:13 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:08:13
+2025-11-24 21:08:13 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:08:16 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:08:16 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:08:16 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:08:16
+2025-11-24 21:08:16 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:08:16 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:08:16 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:08:16 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:08:20 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:08:20 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+http://127.0.0.1:81 [401 Unauthorized] Access-Control-Allow-Methods[GET, POST, OPTIONS], Country[RESERVED][ZZ], HTTPServer[nginx/1.28.0], IP[127.0.0.1], Title[401 Authorization Required], UncommonHeaders[access-control-allow-origin,access-control-allow-methods,access-control-allow-headers], WWW-Authenticate[请输入账号密码][Basic], nginx[1.28.0]
+
+2025-11-24 21:08:20 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:08:20 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+http://127.0.0.1:82 [200 OK] Country[RESERVED][ZZ], HTML5, IP[127.0.0.1], Meta-Author[Mathieu Bodjikian, Charles-Antoine Mathieu], Script[text/javascript], Title[Plik]
+
+2025-11-24 21:08:20 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:08:20 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:08:20 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:08:20
+2025-11-24 21:08:20 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:10:42 - whatweb_scanner - INFO - ==================================================
+2025-11-24 21:10:42 - whatweb_scanner - INFO - WhatWeb 扫描程序启动
+2025-11-24 21:10:42 - whatweb_scanner - INFO - 开始时间: 2025-11-24 21:10:42
+2025-11-24 21:10:42 - whatweb_scanner - INFO - 开始批量扫描，目标数量: 2
+2025-11-24 21:10:42 - whatweb_scanner - INFO - 目标列表: ['127.0.0.1:81', '127.0.0.1:82']
+2025-11-24 21:10:42 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:81
+2025-11-24 21:10:42 - whatweb_scanner - INFO - 开始扫描目标: 127.0.0.1:82
+2025-11-24 21:10:46 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:81 - 返回码: 0
+2025-11-24 21:10:46 - whatweb_scanner - INFO - 目标 127.0.0.1:81 的输出:
+http://127.0.0.1:81 [401 Unauthorized] Access-Control-Allow-Methods[GET, POST, OPTIONS], Country[RESERVED][ZZ], HTTPServer[nginx/1.28.0], IP[127.0.0.1], Title[401 Authorization Required], UncommonHeaders[access-control-allow-origin,access-control-allow-methods,access-control-allow-headers], WWW-Authenticate[请输入账号密码][Basic], nginx[1.28.0]
+
+2025-11-24 21:10:46 - whatweb_scanner - INFO - 扫描完成: 127.0.0.1:82 - 返回码: 0
+2025-11-24 21:10:46 - whatweb_scanner - INFO - 目标 127.0.0.1:82 的输出:
+http://127.0.0.1:82 [200 OK] Country[RESERVED][ZZ], HTML5, IP[127.0.0.1], Meta-Author[Mathieu Bodjikian, Charles-Antoine Mathieu], Script[text/javascript], Title[Plik]
+
+2025-11-24 21:10:46 - whatweb_scanner - INFO - 批量扫描完成，成功处理: 2 个目标
+2025-11-24 21:10:46 - whatweb_scanner - INFO - WhatWeb 扫描程序完成，共处理 2 个目标
+2025-11-24 21:10:46 - whatweb_scanner - INFO - 结束时间: 2025-11-24 21:10:46
+2025-11-24 21:10:46 - whatweb_scanner - INFO - ==================================================

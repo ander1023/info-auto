@@ -14,4 +14,4 @@ services:
     environment:
       - PYTHONUNBUFFERED=1  # 禁用Python输出缓冲，确保日志实时输出
     command: >
-      bash -c "mkdir -p logs && python webUI.py > >(tee -a log/system.log) 2> >(tee -a log/system-error.log >&2)"
+      bash -c "python webUI.py > >(tee -a log/system.log) 2> >(tee -a log/system-error.log >&2)"

@@ -16,9 +16,9 @@ def int_to_ip(num):
 
 
 def is_excluded(ip_str):
-    """排除1和255结尾的IP"""
+    """排除0和255结尾的IP"""
     last_octet = int(ip_str.split('.')[-1])
-    return last_octet in (1, 255)
+    return last_octet in (0, 255)
 
 
 def group_by_gap(ips_int, max_gap=8):
@@ -228,12 +228,9 @@ def run_simple(input_ips):
 if __name__ == "__main__":
     # 测试用例1：正常情况
     example_ips = [
-        "192.168.1.10",
-        "192.168.1.11",
-        "192.168.1.12",
-        "192.168.2.20",
-        "192.168.2.25",
-        "192.168.3.100"
+        "192.168.100.1",
+        "192.168.100.145",
+        "192.168.100.133",
     ]
 
     print("测试用例1 - 正常情况")

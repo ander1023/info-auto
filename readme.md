@@ -26,6 +26,7 @@ python main.py
 
 ```
 docker load -i info-auto13.tar
+下载仓库代码替换后再启动
 docker compose up -d
 
 访问 IP:55823

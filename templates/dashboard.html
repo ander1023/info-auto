@@ -198,14 +198,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        document.getElementById('fileInfo').innerHTML = `
-                            <p><strong>文件大小:</strong> ${(data.file_size / 1024).toFixed(2)} KB</p>
-                            <p><strong>行数:</strong> ${data.row_count}</p>
-                            <p><strong>列数:</strong> ${data.column_count}</p>
-                            <p><strong>列名:</strong> ${data.columns.join(', ')}</p>
-                        `;
-                    } else {
-                        document.getElementById('fileInfo').innerHTML = `<p class="text-danger">${data.message}</p>`;
+                        document.getElementById('fileInfo').innerHTML = `${data.message}`;
                     }
                 });
         }

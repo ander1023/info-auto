@@ -219,22 +219,7 @@ def api_download_file():
 def api_file_info():
     if not os.path.exists(app.config['EXCEL_FILE']):
         return jsonify({'status': 'error', 'message': '文件不存在'})
-
-    try:
-        df = pd.read_excel(app.config['EXCEL_FILE'])
-        file_stats = os.stat(app.config['EXCEL_FILE'])
-
-        info = {
-            'status': 'success',
-            'file_size': file_stats.st_size,
-            'last_modified': file_stats.st_mtime,
-            'row_count': len(df),
-            'column_count': len(df.columns) if len(df) > 0 else 0,
-            'columns': list(df.columns) if len(df) > 0 else []
-        }
-        return jsonify(info)
-    except Exception as e:
-        return jsonify({'status': 'error', 'message': f'读取文件失败: {str(e)}'})
+    return jsonify({'status': 'success', 'message': '文件存在'})
 
 
 # 修改 webUI.py 的最后一行

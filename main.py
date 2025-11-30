@@ -164,11 +164,23 @@ def masscan() -> int:
     ipport = tools.masscan.run(ips)
     print(f"端口扫描发现 {len(ipport)} 个开放端口")
 
+
+    # 统计每个IP的端口数量
+    ip_count = {}
+    for item in ipport:
+        ip = item.split(':')[0]
+        ip_count[ip] = ip_count.get(ip, 0) + 1
+
+    # 保留同IP端口数量小于60个的item
+    filtered_ipport = [item for item in ipport if ip_count[item.split(':')[0]] < 60]
+
+    print(f"过滤后剩余 {len(filtered_ipport)} 个开放端口")
+
     # 去重追加发现的IP端口到对应表格
     tools.exceltools.deduplicate_append_excel(
         file_path="info-auto.xlsx",
         sheet_name="IP端口",
-        target_list=ipport,
+        target_list=filtered_ipport,
         match_column='名称'
     )
 

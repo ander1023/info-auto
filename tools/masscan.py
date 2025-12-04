@@ -44,8 +44,8 @@ async def async_scan(targets: List[str]) -> List[str]:
     # 构建命令 - 确保参数格式正确
     cmd = [
         'masscan',
-        # '-p1-65535',
-        '-p1-200',
+         '-p1-65535',
+        #'-p1-200',
         targets_str,
         '--rate',config.Config.masscan_rate,
         '--wait', '0'

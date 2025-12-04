@@ -20,3 +20,6 @@ class Config:
     EXCEL_FILE = 'info-auto.xlsx'
     UPLOAD_FOLDER = 'uploads'
     ALLOWED_EXTENSIONS = {'xlsx', 'xls'}
+
+    # masscan速率
+    masscan_rate='100' # 默认100

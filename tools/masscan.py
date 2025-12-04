@@ -4,7 +4,7 @@ import os
 import shutil
 from typing import List
 from datetime import datetime
-
+import config
 
 def run(targets: List[str]) -> List[str]:
     """保持向后兼容的同步接口
@@ -45,8 +45,9 @@ async def async_scan(targets: List[str]) -> List[str]:
     cmd = [
         'masscan',
         # '-p1-65535',
-        '-p1-65535',
+        '-p1-200',
         targets_str,
+        '--rate',config.Config.masscan_rate,
         '--wait', '0'
     ]
 

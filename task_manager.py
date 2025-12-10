@@ -101,7 +101,7 @@ class TaskManager:
 
                     try:
                         logger.info("开始端口扫描...")
-                        processed_count += main.masscan()
+                        processed_count += main.naabu()
                         logger.info("端口扫描完成")
                     except Exception as e:
                         logger.error(f"端口扫描失败: {e}")

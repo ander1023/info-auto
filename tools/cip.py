@@ -21,6 +21,45 @@ def is_excluded(ip_str):
     return last_octet in (0, 255)
 
 
+def is_private_ip(ip_str):
+    """判断是否为内网IP"""
+    # 清理IP地址
+    clean_ip = ip_str.replace('cip-', '')
+    octets = list(map(int, clean_ip.split('.')))
+
+    # 常见内网IP段
+    # 1. 10.0.0.0/8
+    if octets[0] == 10:
+        return True
+
+    # 2. 172.16.0.0/12 (172.16.0.0 - 172.31.255.255)
+    if octets[0] == 172 and 16 <= octets[1] <= 31:
+        return True
+
+    # 3. 192.168.0.0/16
+    if octets[0] == 192 and octets[1] == 168:
+        return True
+
+    # 4. 127.0.0.0/8 (本地回环)
+    if octets[0] == 127:
+        return True
+
+    # 5. 169.254.0.0/16 (链路本地地址)
+    if octets[0] == 169 and octets[1] == 254:
+        return True
+
+    # 6. 100.64.0.0/10 (运营商NAT)
+    if octets[0] == 100 and 64 <= octets[1] <= 127:
+        return True
+
+    return False
+
+
+def filter_private_ips(ip_list):
+    """过滤内网IP，只保留公网IP"""
+    return [ip for ip in ip_list if not is_private_ip(ip)]
+
+
 def group_by_gap(ips_int, max_gap=8):
     """按相邻IP差距≤8分组，超过则为独立IP"""
     if not ips_int:
@@ -51,7 +90,7 @@ def group_by_gap(ips_int, max_gap=8):
     return groups, singles
 
 
-def expand_group_properly(group, forward=3, backward=3):
+def expand_group_properly(group, forward=10, backward=10):
     """扩段逻辑：向前/后各扩3个，补中间空缺"""
     min_ip = min(group)
     max_ip = max(group)
@@ -138,19 +177,25 @@ def cidr_to_ips(cidr):
     return ips
 
 
-def run(input_ips):
+def run(input_ips, filter_private=True):
     """
     总入口函数：输入IP列表，扩段后输出独立IP列表
     包含CIDR网段对应的所有IP
 
     Args:
         input_ips: 输入的IP地址列表
+        filter_private: 是否过滤内网IP，默认为True
 
     Returns:
         tuple: (独立IP列表, CIDR网段列表)
     """
     # 清理输入IP，移除可能的前缀
     cleaned_ips = [ip.replace('cip-', '') for ip in input_ips]
+
+    # 过滤内网IP
+    if filter_private:
+        cleaned_ips = filter_private_ips(cleaned_ips)
+        print(f"过滤内网IP后剩余数量: {len(cleaned_ips)}")
 
     # 过滤无效IP
     valid_ips = [ip for ip in cleaned_ips if not is_excluded(ip)]
@@ -210,17 +255,18 @@ def run(input_ips):
     return all_ips_sorted, cidr_list_sorted
 
 
-def run_simple(input_ips):
+def run_simple(input_ips, filter_private=True):
     """
     简化版入口函数：只返回独立IP列表
 
     Args:
         input_ips: 输入的IP地址列表
+        filter_private: 是否过滤内网IP，默认为True
 
     Returns:
         list: 扩段后的所有独立IP地址列表
     """
-    final_ips, _ = run(input_ips)
+    final_ips, _ = run(input_ips, filter_private)
     return final_ips
 
 
@@ -231,44 +277,47 @@ if __name__ == "__main__":
         "192.168.100.1",
         "192.168.100.145",
         "192.168.100.133",
+        "8.8.8.8",  # 公网IP
+        "10.0.0.1",  # 内网IP
+        "172.16.0.1",  # 内网IP
     ]
 
-    print("测试用例1 - 正常情况")
+    print("测试用例1 - 正常情况（包含内网IP）")
     print("输入IP列表:")
     for ip in example_ips:
         print(f"  {ip}")
 
-    result_ips, result_cidrs = run(example_ips)
+    result_ips, result_cidrs = run(example_ips, filter_private=True)
 
     print(f"\n生成的CIDR网段:")
     for cidr in result_cidrs:
         cidr_ips = cidr_to_ips(cidr)
         print(f"  {cidr}: {len(cidr_ips)}个IP")
 
-    print(f"\n扩段后的独立IP列表 (前10个):")
-    for ip in result_ips[:10]:
+    print(f"\n扩段后的独立IP列表:")
+    for ip in result_ips:
         print(f"  {ip}")
 
-    # 测试用例2：边界情况 - 只有1个IP
+    # 测试用例2：测试不过滤内网IP
     print("\n" + "=" * 50)
-    print("测试用例2 - 只有1个IP")
-    single_ip = ["192.168.1.10"]
-    result_ips, result_cidrs = run(single_ip)
-    print(f"输入: {single_ip}")
+    print("测试用例2 - 测试不过滤内网IP")
+    result_ips_no_filter, result_cidrs_no_filter = run(example_ips, filter_private=False)
+    print(f"不过滤内网IP的结果: {len(result_ips_no_filter)}个IP")
+    print(f"过滤内网IP的结果: {len(result_ips)}个IP")
+    print(f"过滤掉的IP数量: {len(result_ips_no_filter) - len(result_ips)}")
+
+    # 测试用例3：边界情况 - 只有内网IP
+    print("\n" + "=" * 50)
+    print("测试用例3 - 只有内网IP")
+    private_only = ["192.168.1.10", "10.0.0.1", "172.16.0.1"]
+    result_ips, result_cidrs = run(private_only, filter_private=True)
+    print(f"输入: {private_only}")
     print(f"输出: {len(result_ips)}个IP, {len(result_cidrs)}个CIDR")
 
-    # 测试用例3：边界情况 - 空列表
+    # 测试用例4：边界情况 - 只有公网IP
     print("\n" + "=" * 50)
-    print("测试用例3 - 空列表")
-    empty_ips = []
-    result_ips, result_cidrs = run(empty_ips)
-    print(f"输入: 空列表")
-    print(f"输出: {len(result_ips)}个IP, {len(result_cidrs)}个CIDR")
-
-    # 测试用例4：排除IP的情况
-    print("\n" + "=" * 50)
-    print("测试用例4 - 包含排除IP")
-    excluded_ips = ["192.168.1.1", "192.168.1.255", "192.168.1.10"]
-    result_ips, result_cidrs = run(excluded_ips)
-    print(f"输入: {excluded_ips}")
+    print("测试用例4 - 只有公网IP")
+    public_only = ["8.8.8.8", "1.1.1.1", "223.5.5.5"]
+    result_ips, result_cidrs = run(public_only, filter_private=True)
+    print(f"输入: {public_only}")
     print(f"输出: {len(result_ips)}个IP, {len(result_cidrs)}个CIDR")

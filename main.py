@@ -1,5 +1,6 @@
 import tools.host
 import tools.masscan
+import tools.naabu
 import tools.nali
 import tools.cip
 import tools.whatweb
@@ -139,7 +140,7 @@ def nali() -> int:
     return len(ips)
 
 
-def masscan() -> int:
+def naabu() -> int:
     """
     执行端口扫描流程
 
@@ -161,7 +162,7 @@ def masscan() -> int:
     print(f"开始端口扫描 {len(ips)} 条IP段记录")
 
     # 执行masscan端口扫描
-    ipport = tools.masscan.run(ips)
+    ipport = tools.naabu.run(ips)
     print(f"端口扫描发现 {len(ipport)} 个开放端口")
 
 
@@ -233,12 +234,24 @@ def whatweb() -> int:
     # 读取所有IP端口记录
     ipport = tools.exceltools.read_excel_sheet_as_list("info-auto.xlsx", "IP端口")
 
-    # 将IP端口转换为子域名端口格式
+    # 将IP和端口转换为子域名和端口的笛卡尔积组合
     ipToSubdomainPort = []
     for item in ipport:
         ip, port = item.split(':', 1)
-        subdomain_with_port = f"{ip_to_subdomain.get(ip, ip)}:{port}"
-        ipToSubdomainPort.append(subdomain_with_port)
+        subdomain = ip_to_subdomain.get(ip, ip)
+        # 如果是范围端口或逗号分隔的端口
+        if '-' in port or ',' in port:
+            # 处理端口范围或列表
+            if '-' in port:
+                start, end = map(int, port.split('-'))
+                for p in range(start, end + 1):
+                    ipToSubdomainPort.append(f"{subdomain}:{p}")
+            elif ',' in port:
+                for p in port.split(','):
+                    ipToSubdomainPort.append(f"{subdomain}:{p}")
+        else:
+            # 单个端口
+            ipToSubdomainPort.append(f"{subdomain}:{port}")
 
     print(f"生成 {len(ipToSubdomainPort)} 条子域名端口记录")
 
@@ -308,7 +321,7 @@ def main():
         processed_count = 0
         processed_count += host()
         processed_count += nali()
-        processed_count += masscan()
+        processed_count += naabu()
         processed_count += whatweb()
 
         if processed_count == 0:

@@ -1,7 +1,7 @@
 # info-auto
 ## 简介
 将表格文件作为整个流程的数据库。
-自动化处理，将子域名->host->nali->扩段->masscan->httpx 流程自动化，直接获取结果。
+自动化处理，将子域名->host->nali->扩段->naabu->whatweb 流程自动化，直接获取结果。
 维护一个excel表(模板中结构不可修改)
 ## 安装
 修改config.py
@@ -10,7 +10,7 @@
 本地搭建注意masscan需要root权限
 
 1. nali
-2. masscan
+2. naabu
 3. whatweb
 
 
@@ -46,6 +46,14 @@ docker compose down
 - 每个流程的过程日志会保留在log/xxx.log 对应工具的原始日志
 
 
+
+
+
+
+
+
+---
+# 部分过时
 
 ## TODO
 

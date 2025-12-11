@@ -1,6 +1,5 @@
 import tools.host
 import tools.masscan
-import tools.naabu
 import tools.nali
 import tools.cip
 import tools.whatweb
@@ -140,7 +139,7 @@ def nali() -> int:
     return len(ips)
 
 
-def naabu() -> int:
+def masscan() -> int:
     """
     执行端口扫描流程
 
@@ -162,7 +161,7 @@ def naabu() -> int:
     print(f"开始端口扫描 {len(ips)} 条IP段记录")
 
     # 执行masscan端口扫描
-    ipport = tools.naabu.run(ips)
+    ipport = tools.masscan.run(ips)
     print(f"端口扫描发现 {len(ipport)} 个开放端口")
 
 
@@ -262,7 +261,6 @@ def whatweb() -> int:
         target_list=ipToSubdomainPort,
         match_column='名称'
     )
-
     # 读取未处理的HTTP记录进行httpx解析
     urls = tools.exceltools.read_excel_sheet_as_list("info-auto.xlsx", "http汇总",
                                                      filter_condition="httpx处理状态!=处理")
@@ -321,7 +319,7 @@ def main():
         processed_count = 0
         processed_count += host()
         processed_count += nali()
-        processed_count += naabu()
+        processed_count += masscan()
         processed_count += whatweb()
 
         if processed_count == 0:

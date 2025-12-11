@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   info-auto:
-    image: info-auto:v1.4
+    image: info-auto:v1.3
     container_name: info-auto
     ports:
       - "55823:5000"

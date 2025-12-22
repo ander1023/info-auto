@@ -42,7 +42,24 @@ docker compose up -d
 docker compose down
 
 ```
-
+docker命令方案 项目根目录启动
+```
+docker run -it \
+  --name info-auto \
+  -p 55823:5000 \
+  -v $(pwd):/app \
+  -w /app \
+  -e PYTHONUNBUFFERED=1 \
+  -e OPENBLAS_NUM_THREADS=1 \
+  -e OPENBLAS_MAIN_THREAD_ONLY=1 \
+  -e OMP_NUM_THREADS=1 \
+  --privileged \
+  --cgroupns=host \
+  --ulimit nproc=-1:-1 \
+  --ulimit nofile=65535:65535 \
+  info-auto:v1.3 \
+  bash -c "python webUI.py > >(tee -a log/system.log) 2> >(tee -a log/system-error.log >&2)"
+```
 
 
 ## 使用
@@ -54,6 +71,10 @@ docker compose down
 
 
 
+## 待修复
+- [ ] nali关键字筛选
+- [ ] 扩段3个扩成30个
+- [ ] 扩段去重失败
 
 
 

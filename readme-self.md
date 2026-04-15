@@ -1,0 +1,115 @@
+
+
+## 本地安装
+
+修改config.py
+检查工具是否可以使用
+
+本地搭建注意masscan需要root权限
+
+1. nali
+2. naabu
+3. whatweb
+
+
+```python
+git clone https://github.com/ander1023/info-auto.git
+cd info-auto
+python -m venv venv
+./venv/bin/pip install -r requirements.txt
+
+python main.py
+```
+
+
+
+
+
+
+
+# 部分过时的项目思路
+
+## TODO
+
+naabu
+
+1. httpx subprocess执行失败 未找到原因
+2. 增加一个webUI,在线启动任务与修改查看excel表格
+3. 封装docker,一键启动
+
+
+
+## idea
+
+过程日志保存log/工具名.log
+运行前检查是否重复
+表格去重追加
+
+## 模块
+
+### host
+
+输入：子域名
+输出：
+
+1. 可解析子域名：日志中address行的域名
+2. 非CDN-IP: 聚合一行，没有alias的IP
+
+逻辑：
+
+1. 读取子表格《表格-子域名》
+2. 读取《host处理状态》为空白的《名称》
+3. 日志中address行ip填写到《对应IP》
+4. 聚合一行，没有alias的IP 填写到《表格-非CDN-IP》的《名称》 并去重
+5. 修改《host处理状态》为处理
+
+###  nali&扩段
+
+输入：非CDN-IP
+输出：IP类型
+
+逻辑：
+
+1. 读取子表格《表格-非CDN-IP》
+2. 读取《nali处理状态》为空白的《名称》
+   nali
+3. 修改《类型》云ip或非云ip
+4. 修改《nali处理状态》为处理
+5. 云IP添加《表格-云IP+非云IP扩段》 并去重
+   扩段
+6. 所有的！！！！非云IP扩段后的独立IP添加《表格-云IP+非云IP扩段》 并去重
+
+### masscan
+
+输入：非CDN-IP（云IP+非云IP扩段后的独立IP）
+输出：IP-端口
+
+逻辑：
+
+1. 读取《表格-云IP+非云IP扩段》
+2. 读取《masscan处理状态》为空白的《名称》
+   masscan
+3. 处理个数小于60个的
+4. 修改追加《表格IP-端口》
+5. 状态修改为处理
+
+### httpx
+
+输入：IP-端口，可解析子域名，可解析子域名-端口
+输出：可访问url
+
+逻辑：
+
+1. 全部IP端口追加《表格-http汇总》的名称 去重
+2. 将所有IP端口的IP替换为子域名表格对应的子域名追加《表格-http汇总》 去重
+3. 将所有有对应IP的子域名追加《表格-http汇总》
+   httpx
+4. 追加《表格-httpx解析》名称
+
+
+## 开发过程：工具函数定义
+
+读取表格函数
+数据据追加函数
+追加去重
+状态修改函数

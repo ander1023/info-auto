@@ -13,7 +13,7 @@
 ## docker安装
 1. 下载Releases中1.5的info-auto-1.3.zip解压为info-auto-master
 2. 下载Releases中1.5的info-auto13.tar 使用`docker load -i info-auto13.tar` 导入到docker images中
-3. 进入info-auto-master目录，执行修改config.py文件，执行`docker compose up -d` 启动服务
+3. 进入info-auto-master目录，修改config.py文件，执行`docker compose up -d` 启动服务
 4. 访问IP:55823
 
 
